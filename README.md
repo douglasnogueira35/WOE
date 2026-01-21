@@ -1,61 +1,46 @@
-# 📊 Projeto Final - Credit Scoring com Machine Learning
+# 📊 Projeto Final - Modelagem Preditiva de Crédito
 
-Este projeto demonstra como aplicar **Machine Learning** para prever **bons e maus pagadores** em uma base de crédito.  
-O trabalho foi desenvolvido em **Python** com bibliotecas como **Scikit-Learn, LightGBM, XGBoost e Streamlit**, e inclui análise exploratória, comparação de modelos e implementação de um app interativo.
+Este projeto aplica **Machine Learning** para prever inadimplência e apoiar decisões estratégicas em crédito.  
+Foram testados diferentes modelos de regressão, avaliados com métricas de mercado e comparados em termos de desempenho e interpretabilidade.
 
 ---
 
 ## 🚀 Objetivos
-- Construir um pipeline completo de pré-processamento e modelagem.
-- Comparar diferentes algoritmos de regressão/classificação.
-- Escolher o modelo com melhor desempenho para escoragem.
-- Implementar uma interface em **Streamlit** para uso prático.
-- Gerar insights de negócio a partir das variáveis mais relevantes.
+- Construir e avaliar modelos de regressão para previsão de risco.  
+- Comparar métricas de performance (R², RMSE, MAE).  
+- Identificar variáveis mais relevantes para orientar decisões estratégicas.  
+- Gerar insights práticos para uso em instituições financeiras.  
 
 ---
 
-## 🧾 Modelos testados
-- **Regressão Linear**
-- **Random Forest Regressor**
-- **XGBRegressor**
-- **LightGBM (modelo final)**
+## 🧾 Modelos Avaliados
 
-📌 O modelo que mais se destacou foi **Random Forest Regressor**, mas o **LightGBM** foi escolhido para produção por sua eficiência e boa performance.
-
----
-
-## 📖 Explicações e Insights
-
-### Por que este modelo?
-- **Random Forest** apresentou melhor desempenho geral.  
-- **LightGBM** foi utilizado para escoragem final pela rapidez e capacidade de lidar com grandes volumes de dados.  
-- **XGBoost** mostrou potencial para identificar padrões ocultos, mas com maior custo computacional.
-
-### Insights de Negócio
-- O modelo ajuda a identificar perfis de maior risco de inadimplência.  
-- Variáveis como **tipo_renda**, **idade** e **posse_de_imóvel** tiveram grande importância.  
-- Clientes com renda instável ou sem patrimônio apresentaram maior score de inadimplência.  
-- Estratégias de crédito podem ser ajustadas com base nesses resultados.
+| Modelo                  | R²     | RMSE       | MAE       |
+|--------------------------|--------|------------|-----------|
+| Linear Regression        | 0.483  | 14208.62   | 8193.65   |
+| Random Forest Regressor  | 0.765  | 9572.11    | 5156.61   |
+| XGBRegressor             | 0.373  | 15645.36   | 6417.50   |
 
 ---
 
-## 📊 Gráficos Comparativos
-- Importância das variáveis  
-- Distribuição dos scores por **tipo_renda**  
-- Curva ROC e métricas (AUC, KS, Gini)
-
-*(insira imagens ou links dos gráficos aqui)*
+## 📖 Justificativa da Escolha dos Modelos
+- **Linear Regression**: modelo básico e interpretável, útil para relações lineares simples.  
+- **Random Forest Regressor**: captura interações complexas entre variáveis e é robusto contra ruído.  
+- **XGBRegressor**: modelo de boosting que otimiza erros residuais, excelente para alta performance em regressão.  
 
 ---
 
-## 🖥️ Aplicação em Streamlit
-O app permite:
-1. Upload de arquivos CSV.  
-2. Escoragem automática com o modelo treinado (`model_final.pkl`).  
-3. Visualização dos scores de inadimplência.  
-4. Download da base escorada.  
+## 🎯 Insights Estratégicos
+- O **Random Forest Regressor** apresentou o melhor desempenho geral (maior R² e menor RMSE/MAE).  
+- Para reduzir erro, deve-se priorizar o modelo com menor RMSE ou MAE.  
+- Modelos complexos como **XGBoost** ajudam a identificar padrões ocultos, mesmo quando não são os melhores em métricas globais.  
+- A análise das variáveis mais importantes orienta gestores a tomar decisões antecipadas, ajustando limites de crédito e monitorando perfis de maior risco.  
 
-### Rodando localmente
-```bash
-pip install -r requirements.txt
-streamlit run app.py
+---
+
+## ✅ Conclusão
+O projeto demonstrou como diferentes algoritmos podem ser aplicados em **Credit Scoring**.  
+O **Random Forest Regressor** se destacou como o modelo mais eficiente para prever novos dados, equilibrando performance e robustez.  
+A integração das métricas (R², RMSE, MAE) com a análise de variáveis fornece uma base sólida para decisões estratégicas em instituições financeiras.  
+
+---
