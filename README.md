@@ -1,67 +1,61 @@
-# 📘 README – Projeto de Análise da Nota Fiscal Paulista (NFP)
+# 📊 Projeto Final - Credit Scoring com Machine Learning
 
-## 📌 Contexto
-Este projeto utiliza a base **NFP.ftr**, proveniente do projeto **#AMABiliDados**, que contém dados de notas fiscais cadastradas para doação automática à **AMA – Associação de Amigos do Autista**.  
-O objetivo é analisar e modelar a propensão de diferentes categorias de notas fiscais gerarem créditos (retorno > 0), aplicando técnicas estatísticas como **WOE (Weight of Evidence)** e **IV (Information Value)**.
-
----
-
-## 🎯 Objetivo
-- Identificar quais categorias de notas possuem maior ou menor probabilidade de gerar créditos.  
-- Avaliar a relevância da variável **categoria** na explicação do retorno de crédito.  
-- Fornecer insights que possam apoiar modelos preditivos e estratégias de incentivo.  
+Este projeto demonstra como aplicar **Machine Learning** para prever **bons e maus pagadores** em uma base de crédito.  
+O trabalho foi desenvolvido em **Python** com bibliotecas como **Scikit-Learn, LightGBM, XGBoost e Streamlit**, e inclui análise exploratória, comparação de modelos e implementação de um app interativo.
 
 ---
 
-## 📂 Estrutura da Base
-| Campo              | Descrição |
-|--------------------|-----------|
-| **CNPJ emit.**     | CNPJ do emitente da nota |
-| **Emitente**       | Nome fantasia do emitente |
-| **No.**            | Número da nota fiscal |
-| **Data Emissão**   | Data da emissão da nota |
-| **Valor NF**       | Valor da nota fiscal |
-| **Data Registro**  | Data de registro no sistema |
-| **Créditos**       | Valor dos créditos (doação) |
-| **Situação Crédito** | Status do crédito (pago, processado etc.) |
-| **Ano**            | Ano da emissão |
-| **Semestre**       | Semestre da emissão |
-| **Retorno**        | Créditos ÷ Valor da nota |
-| **flag_credito**   | Indicador se houve crédito positivo |
-| **categoria**      | Categoria da nota |
+## 🚀 Objetivos
+- Construir um pipeline completo de pré-processamento e modelagem.
+- Comparar diferentes algoritmos de regressão/classificação.
+- Escolher o modelo com melhor desempenho para escoragem.
+- Implementar uma interface em **Streamlit** para uso prático.
+- Gerar insights de negócio a partir das variáveis mais relevantes.
 
 ---
 
-## 🛠️ Metodologia
-1. **Filtragem dos dados**  
-   - Considerar apenas notas a partir de janeiro de 2020.  
+## 🧾 Modelos testados
+- **Regressão Linear**
+- **Random Forest Regressor**
+- **XGBRegressor**
+- **LightGBM (modelo final)**
 
-2. **Análise exploratória**  
-   - Proporção de notas com retorno > 0 por categoria.  
-   - Visualização em tabelas e gráficos.  
-
-3. **Cálculo do WOE (Weight of Evidence)**  
-   - Evento: nota com retorno > 0.  
-   - Não evento: nota sem retorno.  
-   - Interpretação:  
-     - WOE positivo → categoria mais propensa a gerar crédito.  
-     - WOE negativo → categoria menos propensa.  
-     - WOE ≈ 0 → categoria neutra.  
-
-4. **Cálculo do IV (Information Value)**  
-   - Mede o poder preditivo da variável **categoria**.  
-   - Interpretação:  
-     - <0.02 → não preditiva  
-     - 0.02–0.1 → fraca  
-     - 0.1–0.3 → média  
-     - 0.3–0.5 → forte  
-     - >0.5 → suspeita de overfitting  
+📌 O modelo que mais se destacou foi **Random Forest Regressor**, mas o **LightGBM** foi escolhido para produção por sua eficiência e boa performance.
 
 ---
 
-## 📊 Exemplos de Código
+## 📖 Explicações e Insights
 
-### Filtragem
-```python
-df['Data Emissão'] = pd.to_datetime(df['Data Emissão'])
-df = df[df['Data Emissão'] >= '2020-01-01']
+### Por que este modelo?
+- **Random Forest** apresentou melhor desempenho geral.  
+- **LightGBM** foi utilizado para escoragem final pela rapidez e capacidade de lidar com grandes volumes de dados.  
+- **XGBoost** mostrou potencial para identificar padrões ocultos, mas com maior custo computacional.
+
+### Insights de Negócio
+- O modelo ajuda a identificar perfis de maior risco de inadimplência.  
+- Variáveis como **tipo_renda**, **idade** e **posse_de_imóvel** tiveram grande importância.  
+- Clientes com renda instável ou sem patrimônio apresentaram maior score de inadimplência.  
+- Estratégias de crédito podem ser ajustadas com base nesses resultados.
+
+---
+
+## 📊 Gráficos Comparativos
+- Importância das variáveis  
+- Distribuição dos scores por **tipo_renda**  
+- Curva ROC e métricas (AUC, KS, Gini)
+
+*(insira imagens ou links dos gráficos aqui)*
+
+---
+
+## 🖥️ Aplicação em Streamlit
+O app permite:
+1. Upload de arquivos CSV.  
+2. Escoragem automática com o modelo treinado (`model_final.pkl`).  
+3. Visualização dos scores de inadimplência.  
+4. Download da base escorada.  
+
+### Rodando localmente
+```bash
+pip install -r requirements.txt
+streamlit run app.py
